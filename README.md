@@ -13,7 +13,7 @@ Demo for function calling in [Ollama](https://github.com/ollama/ollama/) via the
 ```bash
 git clone https://github.com/HardAndHeavy/ollama-function-calling
 cd ollama-function-calling
-make gen
+make gen # Press enter to set the default values
 make run
 make seed-saiga-llama
 ```
