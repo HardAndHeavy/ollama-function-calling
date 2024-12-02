@@ -1,0 +1,40 @@
+services:
+  example-function-calling:
+    image: hardandheavy/example-function-calling:1
+    container_name: example-function-calling
+    env_file: ./assets/env/example-function-calling.env
+
+  ollama:
+    image: ollama/ollama:0.4.7-rocm
+    container_name: ollama
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    env_file: ./assets/env/ollama.env
+    volumes:
+      - ./data/ollama:/root/.ollama
+      - ./data/models:/models
+      - ./assets/modelfiles:/modelfiles
+
+  pipelines:
+    image: ghcr.io/open-webui/pipelines:git-1367d95
+    container_name: pipelines
+    depends_on:
+      - ollama
+    env_file: ./assets/env/pipelines.env
+    volumes:
+      - ./data/pipelines:/app/pipelines
+      - ./assets/function_calling_blueprint.py:/app/blueprints/function_calling_blueprint.py
+      - ./assets/function_calling.py:/app/pipelines/function_calling.py
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:0.4.7
+    container_name: open-webui
+    depends_on:
+      - ollama
+      - pipelines
+    ports:
+      - 80:8080
+    env_file: ./assets/env/open-webui.env
+    volumes:
+      - ./data/open-webui:/app/backend/data

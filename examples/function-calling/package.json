@@ -1,0 +1,13 @@
+{
+  "name": "function-calling",
+  "version": "1.0.0",
+  "description": "Example of a server to demonstrate a function calling",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "author": "Ivan Grigorev",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^5.1.0"
+  }
+}

@@ -1,0 +1,36 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Creating a variable cache folder secure/var
+      ansible.builtin.file:
+        path: ../secure/var
+        state: directory
+    - name: Creating passwords
+      ansible.builtin.set_fact:
+        pipelines_api_key: "{{ lookup('ansible.builtin.password', '../secure/var/pipelinesapi_key', length=64, chars=['ascii_letters', 'digits']) }}"
+    - name: Set gfx version
+      ansible.builtin.set_fact:
+        gfx_version: "{{ lookup('env', 'HSA_OVERRIDE_GFX_VERSION') }}"
+
+    - name: Creating a variable cache folder assets/env
+      ansible.builtin.file:
+        path: ../assets/env
+        state: directory
+    - name: Creating an environment variable file for example-function-calling
+      ansible.builtin.template:
+        src: example-function-calling.env.j2
+        dest: ../assets/env/example-function-calling.env
+    - name: Creating an environment variable file for example-function-calling
+      ansible.builtin.template:
+        src: ollama.env.j2
+        dest: ../assets/env/ollama.env
+    - name: Creating an environment variable file for open-webui
+      ansible.builtin.template:
+        src: open-webui.env.j2
+        dest: ../assets/env/open-webui.env
+    - name: Creating an environment variable file for pipelines
+      ansible.builtin.template:
+        src: pipelines.env.j2
+        dest: ../assets/env/pipelines.env
