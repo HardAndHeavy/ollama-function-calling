@@ -21,5 +21,8 @@ gen:
 run:
 	docker compose up -d
 
+run-cpu:
+	docker compose -f docker-compose.cpu.yaml up -d
+
 stop:
 	docker compose stop

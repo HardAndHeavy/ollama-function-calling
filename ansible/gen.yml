@@ -2,11 +2,19 @@
 
 - hosts: localhost
   gather_facts: false
+  vars_prompt:
+     - name: task_model
+       prompt: Имя модели
+       default: "{{ lookup('file', '../secure/var/task_model', errors='ignore') | default('saiga_llama3_8b_f16', true) }}"
+       private: false
+   
   tasks:
     - name: Creating a variable cache folder secure/var
       ansible.builtin.file:
         path: ../secure/var
         state: directory
+    - name: Сохранение task_model
+      local_action: copy content={{ task_model }} dest=../secure/var/task_model
     - name: Creating passwords
       ansible.builtin.set_fact:
         pipelines_api_key: "{{ lookup('ansible.builtin.password', '../secure/var/pipelinesapi_key', length=64, chars=['ascii_letters', 'digits']) }}"

@@ -3,4 +3,3 @@
 ollama_url: http://ollama:11434
 pipelines_url: http://pipelines:9099
 pipelines_ollama_url: http://ollama:11434/v1
-task_model: saiga_llama3_8b_f16
