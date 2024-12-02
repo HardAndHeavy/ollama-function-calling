@@ -1,5 +1,5 @@
 # Ollama function calling demo
-Demo for function calling in [Ollama](https://github.com/ollama/ollama/) via the [pipelines](https://github.com/open-webui/pipelines) plugin of the [Open WebUI](https://github.com/open-webui/open-webui) web interface. Tested on AMD Radeon RX 7900 XTX.
+Demo for function calling in [Ollama](https://github.com/ollama/ollama/) via the [Pipelines](https://github.com/open-webui/pipelines) plugin of the [Open WebUI](https://github.com/open-webui/open-webui) web interface. Tested on AMD Radeon RX 7900 XTX.
 
 ### Requirements
 - Ubuntu
