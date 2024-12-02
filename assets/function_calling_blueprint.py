@@ -129,7 +129,7 @@ And answer according to the language of the user's question."""),
             system_prompt = self.valves.TEMPLATE.replace(
                 "{{CONTEXT}}", function_result
             )
-            print(system_prompt)
+
             messages = add_or_update_system_message(
                 system_prompt, messages
             )
