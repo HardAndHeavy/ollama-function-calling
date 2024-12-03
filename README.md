@@ -14,7 +14,7 @@ Demo for function calling in [Ollama](https://github.com/ollama/ollama/) via the
 git clone https://github.com/HardAndHeavy/ollama-function-calling
 cd ollama-function-calling
 make gen # Press enter to set the default values
-make run
+make run # To run on the processor, type make run-cpu
 make seed-saiga-llama
 ```
 
