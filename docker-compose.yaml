@@ -5,7 +5,7 @@ services:
     env_file: ./assets/env/example-function-calling.env
 
   ollama:
-    image: ollama/ollama:0.4.7-rocm
+    image: ollama/ollama:0.6.3-rocm
     container_name: ollama
     devices:
       - /dev/kfd:/dev/kfd
@@ -17,7 +17,7 @@ services:
       - ./assets/modelfiles:/modelfiles
 
   pipelines:
-    image: ghcr.io/open-webui/pipelines:git-1367d95
+    image: ghcr.io/open-webui/pipelines:git-275655f
     container_name: pipelines
     depends_on:
       - ollama
@@ -28,7 +28,7 @@ services:
       - ./assets/function_calling.py:/app/pipelines/function_calling.py
 
   open-webui:
-    image: ghcr.io/open-webui/open-webui:0.4.7
+    image: ghcr.io/open-webui/open-webui:git-5ce6c8c
     container_name: open-webui
     depends_on:
       - ollama
