@@ -24,5 +24,8 @@ run:
 run-cpu:
 	docker compose -f docker-compose.cpu.yaml up -d
 
+run-1c:
+	docker compose -f docker-compose.1c.cuda.yaml up -d
+
 stop:
 	docker compose stop
