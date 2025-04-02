@@ -1,0 +1,39 @@
+services:
+  ollama:
+    image: ollama/ollama:0.6.3
+    container_name: ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    env_file: ./assets/env/ollama.env
+    volumes:
+      - ./data/ollama:/root/.ollama
+      - ./data/models:/models
+      - ./assets/modelfiles:/modelfiles
+
+  pipelines:
+    image: ghcr.io/open-webui/pipelines:git-275655f
+    container_name: pipelines
+    depends_on:
+      - ollama
+    env_file: ./assets/env/pipelines.env
+    volumes:
+      - ./data/pipelines:/app/pipelines
+      - ./assets/function_calling_blueprint.py:/app/blueprints/function_calling_blueprint.py
+      - ./assets/function_calling_1c.py:/app/pipelines/function_calling.py
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:git-5ce6c8c
+    container_name: open-webui
+    depends_on:
+      - ollama
+      - pipelines
+    ports:
+      - 80:8080
+    env_file: ./assets/env/open-webui.env
+    volumes:
+      - ./data/open-webui:/app/backend/data
